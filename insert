@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER insertmaster
-AFTER INSERT ON clientmaster
+AFTER INSERT ON client
 FOR EACH ROW
 BEGIN
     INSERT INTO insertbackup (srno, name)
