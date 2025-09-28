@@ -1,0 +1,129 @@
+SQL> create table client(srno int, name varchar(20));
+
+Table created.
+
+SQL> create table Audit_t as select * from client;
+
+Table created.
+
+SQL> insert into client (srno,name) values (101,'pranat');
+
+1 row created.
+
+SQL> insert into client (srno,name) values (102,'anuj');
+
+1 row created.
+
+SQL> insert into client (srno,name) values (103,'sumeet');
+
+1 row created.
+
+SQL> @C:\Users\ppaga\Desktop\sqlplus\trigger\update.sql
+
+Trigger created.
+
+SQL> select * from client;
+
+      SRNO NAME
+---------- --------------------
+       101 pranat
+       102 anuj
+       103 sumeet
+
+SQL> update client set srno = 103 where name = 'vedant';
+
+1 row updated.
+
+SQL> select * from client;
+
+      SRNO NAME
+---------- --------------------
+       101 pranat
+       102 anuj
+       103 vedant
+
+SQL> select * from Audit_t;
+
+      SRNO NAME
+---------- --------------------
+       102 anuj
+
+SQL> delete from client where srno = 102;
+
+1 row deleted.
+
+SQL> select * from Audit_t;
+
+      SRNO NAME
+---------- --------------------
+       102 anuj
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table insertbackup as select * from client;
+
+Table created.
+
+SQL> @C:\Users\ppaga\Desktop\sqlplus\trigger\update.sql
+
+Trigger created.
+
+SQL> select * from insertbackup;
+
+      SRNO NAME
+---------- --------------------
+       101 pranat
+       103 vedant
+
+SQL> insert into client values(104,'divya');
+
+1 row created.
+
+SQL> select * from Audit_t;
+
+      SRNO NAME
+---------- --------------------
+       102 pranat
+       102 pooja
+
+SQL> select * from client;
+
+      SRNO NAME
+---------- --------------------
+       101 pranat
+       103 vedant
+       104 divya
+
+SQL> @C:\Users\ppaga\Desktop\sqlplus\trigger\update.sql
+
+Trigger created.
+
+SQL> select * from client;
+
+      SRNO NAME
+---------- --------------------
+       101 prajakta
+       103 pranat
+       104 divya
+
+SQL> select * from Audit_t;
+
+      SRNO NAME
+---------- --------------------
+       102 anuj
+
+SQL> select * from insertbackup;
+
+      SRNO NAME
+---------- --------------------
+       101 pranat
+       103 vedant
+       104 divya
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
